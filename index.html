@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Вечер распределения</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'HarryPotter';
+            src: url('Harry Potter.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #1a1e29;
+            --gold: #d4af37;
+            --text-light: #f0f0f0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px;
+            background-image: radial-gradient(circle at 50% 0%, #1e2538 0%, #0a0e17 70%);
+            background-attachment: fixed;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'HarryPotter', 'MedievalSharp', cursive;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        h1 { font-size: 2rem; margin-top: 10px; }
+        h2 { font-size: 1.6rem; }
+        h3 { font-size: 1.3rem; }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 24px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(212, 175, 55, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-crest {
+            width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        }
+
+        .owl-img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        }
+
+        .hat-img {
+            width: 130px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+        }
+
+        .castle-img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            text-align: center;
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+
+        .options-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 14px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.4;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .option-btn:hover, .option-btn:active {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            transform: scale(1.01);
+        }
+
+        .option-btn .bullet {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #0a0e17;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+            transition: all 0.2s;
+            font-family: 'HarryPotter', 'MedievalSharp', cursive;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            background: #e6c34a;
+            transform: scale(1.02);
+        }
+
+        .result-crest {
+            width: 170px;
+            height: 170px;
+            object-fit: contain;
+            margin: 16px 0;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+        }
+
+        .result-title {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .result-desc {
+            font-size: 1rem;
+            color: #ccc;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .hat-quote {
+            font-style: italic;
+            color: var(--gold);
+            font-size: 1.05rem;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 3px solid var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 0 10px 10px 0;
+            line-height: 1.5;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .dot.completed {
+            background: rgba(212, 175, 55, 0.5);
+        }
+
+        .hidden { display: none !important; }
+
+        .about-section {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .about-section a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .about-section a:hover {
+            text-decoration: underline;
+        }
+
+        .gryffindor .result-title { color: #ff4d4d; }
+        .hufflepuff .result-title { color: #f2d35c; }
+        .ravenclaw .result-title { color: #5c7cfa; }
+        .slytherin .result-title { color: #4caf50; }
+
+        @media (max-width: 400px) {
+            h1 { font-size: 1.6rem; }
+            .story-text { font-size: 1rem; }
+            .option-btn { font-size: 0.9rem; padding: 14px; }
+            .result-title { font-size: 1.6rem; }
+            .result-crest { width: 140px; height: 140px; }
+            .hat-img { width: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>✨ Вечер распределения ✨</h1>
+        
+        <!-- Экран приветствия -->
+        <div id="screen-start" class="card">
+            <img src="crest.jpeg" alt="Герб Хогвартса" class="header-crest">
+            <img src="sortinghat.png" alt="Распределяющая шляпа" class="hat-img">
+            <img src="owl.jpeg" alt="Сова с письмом" class="owl-img">
+            <h2>Примерь Шляпу</h2>
+            <p class="story-text">Привет! Сегодня ты попадешь в Хогвартс. Ответь на 5 вопросов, и Распределяющая шляпа решит, на какой факультет тебя отправить. Не бойся, здесь нет правильных или неправильных ответов — только твой характер!</p>
+            <button class="btn-primary" onclick="startGame()">Начать распределение</button>
+        </div>
+
+        <!-- Экран вопроса -->
+        <div id="screen-question" class="card hidden">
+            <div class="progress-bar" id="progress-bar"></div>
+            <img src="sortinghat.png" alt="Шляпа" class="hat-img" style="width: 90px;">
+            <p class="story-text" id="question-text">Текст вопроса</p>
+            <div class="options-list" id="options-container"></div>
+        </div>
+
+        <!-- Экран результата -->
+        <div id="screen-result" class="card hidden">
+            <img src="base.jpeg" alt="Хогвартс" class="castle-img">
+            <div id="result-content"></div>
+            <button class="btn-primary" onclick="restartGame()">Пройти заново</button>
+        </div>
+
+        <!-- Об игре -->
+        <div class="about-section">
+            <p>Игра создана для семейного вечера. Характеры факультетов описаны по материалам <a href="https://www.harrypotter.com/" target="_blank">HarryPotter.com</a>.</p>
+            <p style="margin-top: 8px;">Изображения: Warner Bros. / Pottermore</p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                text: "Ты ставишь школьный спектакль. У дракона из бумаги получается только жалкий писк вместо грозного рёва. Что ты сделаешь?",
+                options: [
+                    { text: "Помогу актёру за кулисами: подскажу, как рычать громче, и поддержу его, чтобы он не боялся сцены.", points: "hufflepuff" },
+                    { text: "Предложу поменять сценарий: пусть дракон будет волшебным и говорит шёпотом, а я придумаю, как это красиво обыграть.", points: "slytherin" },
+                    { text: "Выйду на сцену и покажу, как надо рычать! Я не боюсь зрителей и готов спасти спектакль.", points: "gryffindor" },
+                    { text: "Задумаюсь: а почему бумага пищит? Может, если добавить внутрь пружинку или мембрану, звук станет громче?", points: "ravenclaw" }
+                ]
+            },
+            {
+                text: "На уроке зельеварения ты случайно смешал не те ингредиенты, и котёл начал менять цвет. Что ты сделаешь?",
+                options: [
+                    { text: "Быстро придумаю, как это можно назвать: может, это новое зелье «Радужное настроение»? Надо только додумать эффект.", points: "slytherin" },
+                    { text: "Честно признаюсь учителю и предложу свою помощь, чтобы вместе всё исправить. Друзья не подводят.", points: "hufflepuff" },
+                    { text: "Спокойно запишу в блокнот, что именно я смешал, и попробую понять, как это можно использовать в будущем.", points: "ravenclaw" },
+                    { text: "Попробую остановить реакцию самостоятельно, даже если это рискованно. Не хочу, чтобы кто-то пострадал из-за меня.", points: "gryffindor" }
+                ]
+            },
+            {
+                text: "Во время прогулки по Запретному лесу ты нашел странную светящуюся дверь. Что ты сделаешь?",
+                options: [
+                    { text: "Открою её и войду первым! Интересно же, что там, а вдруг там приключение?", points: "gryffindor" },
+                    { text: "Внимательно осмотрю дверь, поищу подсказки и запишу всё в дневник, чтобы потом разгадать загадку.", points: "ravenclaw" },
+                    { text: "Позову друзей и предложу исследовать вместе, чтобы никто не остался в стороне и мы помогали друг другу.", points: "hufflepuff" },
+                    { text: "Подумаю, какую выгоду это может принести: может, за дверью спрятано что-то полезное для школы?", points: "slytherin" }
+                ]
+            },
+            {
+                text: "Ты готовишь подарок для друга на день рождения. У тебя есть только старые вещи и немного магии. Что ты сделаешь?",
+                options: [
+                    { text: "Найду способ превратить старую вещь в нечто ценное. Главное — цель, а средства найдутся.", points: "slytherin" },
+                    { text: "Сделаю что-то своими руками, вложив всю заботу. Друг точно почувствует, что я старался для него.", points: "hufflepuff" },
+                    { text: "Придумаю что-то необычное и весёлое, чтобы друг удивился и запомнил этот день надолго.", points: "gryffindor" },
+                    { text: "Изучу свойства материалов и придумаю, как из них сделать что-то действительно полезное и красивое.", points: "ravenclaw" }
+                ]
+            },
+            {
+                text: "В школе объявили конкурс на лучшее украшение зала. Твоя команда не может договориться. Что ты сделаешь?",
+                options: [
+                    { text: "Предложу компромисс: пусть каждый сделает свою часть, а я помогу всем объединить идеи в одно целое.", points: "hufflepuff" },
+                    { text: "Возьму инициативу в свои руки и предложу смелый план, который точно всех удивит.", points: "gryffindor" },
+                    { text: "Разложу всё по полочкам: изучу, какие идеи лучше сочетаются, и предложу самый логичный вариант.", points: "ravenclaw" },
+                    { text: "Придумаю, как сделать так, чтобы наша работа выиграла. Надо действовать хитро и красиво!", points: "slytherin" }
+                ]
+            }
+        ];
+
+        const houses = {
+            gryffindor: {
+                name: "Гриффиндор",
+                crest: "gryffindor.jpeg",
+                desc: "Ты смелый, отважный и готов прийти на помощь. Гриффиндор ценит храбрость и благородство. Ты не боишься трудностей и всегда готов защитить друзей.",
+                qualities: ["смелость", "отвага", "готовность помочь"]
+            },
+            hufflepuff: {
+                name: "Пуффендуй",
+                crest: "hufflepuff.jpeg",
+                desc: "Ты заботливый, верный и трудолюбивый. Пуффендуй ценит преданность и доброту. Ты всегда поддержишь друга и не бросишь в беде.",
+                qualities: ["забота", "верность", "трудолюбие"]
+            },
+            ravenclaw: {
+                name: "Когтевран",
+                crest: "ravenclaw.jpeg",
+                desc: "Ты любознательный, умный и находчивый. Когтевран ценит знания и остроумие. Ты любишь разгадывать загадки и всегда стремишься узнать что-то новое.",
+                qualities: ["любознательность", "ум", "находчивость"]
+            },
+            slytherin: {
+                name: "Слизерин",
+                crest: "slytheryn.jpeg",
+                desc: "Ты находчивый, целеустремлённый и амбициозный. Слизерин ценит хитрость и решительность. Ты всегда добиваешься своей цели и умеешь находить выход из любой ситуации.",
+                qualities: ["находчивость", "целеустремлённость", "амбициозность"]
+            }
+        };
+
+        let currentQuestionIndex = 0;
+        let scores = { gryffindor: 0, hufflepuff: 0, ravenclaw: 0, slytherin: 0 };
+        let answersLog = [];
+
+        const screenStart = document.getElementById('screen-start');
+        const screenQuestion = document.getElementById('screen-question');
+        const screenResult = document.getElementById('screen-result');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContent = document.getElementById('result-content');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startGame() {
+            currentQuestionIndex = 0;
+            scores = { gryffindor: 0, hufflepuff: 0, ravenclaw: 0, slytherin: 0 };
+            answersLog = [];
+            screenStart.classList.add('hidden');
+            screenResult.classList.add('hidden');
+            screenQuestion.classList.remove('hidden');
+            renderProgress();
+            renderQuestion();
+        }
+
+        function renderProgress() {
+            progressBar.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === currentQuestionIndex) dot.classList.add('active');
+                if (i < currentQuestionIndex) dot.classList.add('completed');
+                progressBar.appendChild(dot);
+            }
+        }
+
+        function renderQuestion() {
+            renderProgress();
+            const q = questions[currentQuestionIndex];
+            questionText.textContent = q.text;
+            const shuffledOptions = shuffleArray([...q.options]);
+            optionsContainer.innerHTML = '';
+            shuffledOptions.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="bullet"></span><span>${opt.text}</span>`;
+                btn.onclick = () => selectAnswer(opt);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(option) {
+            scores[option.points] = (scores[option.points] || 0) + 1;
+            answersLog.push({
+                question: questions[currentQuestionIndex].text,
+                answer: option.text,
+                house: option.points
+            });
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                renderQuestion();
+            } else {
+                checkTie();
+            }
+        }
+
+        function checkTie() {
+            const maxScore = Math.max(...Object.values(scores));
+            const leaders = Object.keys(scores).filter(h => scores[h] === maxScore);
+            if (leaders.length > 1) {
+                askTieBreaker(leaders);
+            } else {
+                showResult(leaders[0]);
+            }
+        }
+
+        function askTieBreaker(leaders) {
+            const tieQuestion = {
+                text: "Шляпа задумалась... Твои качества подходят сразу нескольким факультетам! Ответь ещё на один вопрос, чтобы сделать окончательный выбор.",
+                options: []
+            };
+            const tieOptions = {
+                gryffindor: "Я всегда готов встать на защиту слабых, даже если мне страшно.",
+                hufflepuff: "Для меня важно, чтобы всем было хорошо, и я никогда не брошу друга.",
+                ravenclaw: "Я люблю узнавать новое и всегда ищу ответы на сложные вопросы.",
+                slytherin: "Я умею добиваться своего и находить нестандартные решения."
+            };
+            leaders.forEach(house => {
+                tieQuestion.options.push({
+                    text: tieOptions[house],
+                    points: house
+                });
+            });
+            questionText.textContent = tieQuestion.text;
+            optionsContainer.innerHTML = '';
+            const shuffledTie = shuffleArray([...tieQuestion.options]);
+            shuffledTie.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="bullet"></span><span>${opt.text}</span>`;
+                btn.onclick = () => {
+                    scores[opt.points] += 1;
+                    answersLog.push({
+                        question: tieQuestion.text,
+                        answer: opt.text,
+                        house: opt.points
+                    });
+                    const finalMax = Math.max(...Object.values(scores));
+                    const finalLeaders = Object.keys(scores).filter(h => scores[h] === finalMax);
+                    showResult(finalLeaders[0]);
+                };
+                optionsContainer.appendChild(btn);
+            });
+            progressBar.innerHTML = '';
+            for (let i = 0; i <= questions.length; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === questions.length) dot.classList.add('active');
+                if (i < questions.length) dot.classList.add('completed');
+                progressBar.appendChild(dot);
+            }
+        }
+
+        function showResult(houseKey) {
+            screenQuestion.classList.add('hidden');
+            screenResult.classList.remove('hidden');
+            const house = houses[houseKey];
+            let lastAnswer = answersLog.filter(a => a.house === houseKey).pop();
+            if (!lastAnswer) {
+                lastAnswer = answersLog[answersLog.length - 1];
+            }
+            const quality = house.qualities[Math.floor(Math.random() * house.qualities.length)];
+            resultContent.innerHTML = `
+                <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                    <img src="${house.crest}" alt="${house.name}" class="result-crest">
+                    <h2 class="result-title ${houseKey}">${house.name}</h2>
+                    <p class="result-desc">${house.desc}</p>
+                    <div class="hat-quote">
+                        «Я помню, как ты ответил: "${lastAnswer.answer}". В этом ответе я увидел(а) твою ${quality}. Именно это и привело тебя на факультет ${house.name}!»
+                    </div>
+                </div>
+            `;
+        }
+
+        function restartGame() {
+            screenResult.classList.add('hidden');
+            screenStart.classList.remove('hidden');
+            currentQuestionIndex = 0;
+            scores = { gryffindor: 0, hufflepuff: 0, ravenclaw: 0, slytherin: 0 };
+            answersLog = [];
+            progressBar.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
